@@ -190,88 +190,57 @@
 						<span>03</span>
 					</div>
 					<div class="title_wrap">
-						<span>My Portfolio</span>
+						<span>Anna photo</span>
 					</div>
 				</div>
 				<ul class="edina_tm_portfolio_filter">
 					<li><a href="#" class="current" data-filter="*">All</a></li>
-					<li><a href="#" data-filter=".design">Design</a></li>
-					<li><a href="#" data-filter=".photography">Photography</a></li>
-					<li><a href="#" data-filter=".development">Development</a></li>
+					<li><a href="#" data-filter=".funny">Funny</a></li>
+					<li><a href="#" data-filter=".smart">Smart</a></li>
+					<li><a href="#" data-filter=".interesting">Interesting</a></li>
 				</ul>
 				<ul class="edina_tm_portfolio_list gallery_zoom">
-					<li class="design">
-						<div class="list_inner">
-							<div class="image_wrap">
-								<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
-								<div class="main_image"></div>
-							</div>
-							<div class="definition_portfolio">
-								<span class="first"><a class="zoom" href="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/1.jpg">Title of project</a></span>
-								<span class="second">Category</span>
-							</div>
-						</div>
-					</li>
-					<li class="photography">
-						<div class="list_inner">
-							<div class="image_wrap">
-								<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
-								<div class="main_image"></div>
-							</div>
-							<div class="definition_portfolio">
-								<span class="first"><a class="zoom" href="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/2.jpg">Title of project</a></span>
-								<span class="second">Category</span>
-							</div>
-						</div>
-					</li>
-					<li class="development">
-						<div class="list_inner">
-							<div class="image_wrap">
-								<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
-								<div class="main_image"></div>
-							</div>
-							<div class="definition_portfolio">
-								<span class="first"><a class="zoom" href="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/3.jpg">Title of project</a></span>
-								<span class="second">Category</span>
-							</div>
-						</div>
-					</li>
-					<li class="photography">
-						<div class="list_inner">
-							<div class="image_wrap">
-								<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
-								<div class="main_image"></div>
-							</div>
-							<div class="definition_portfolio">
-								<span class="first"><a class="zoom" href="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/4.jpg">Title of project</a></span>
-								<span class="second">Category</span>
-							</div>
-						</div>
-					</li>
-					<li class="design">
-						<div class="list_inner">
-							<div class="image_wrap">
-								<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
-								<div class="main_image"></div>
-							</div>
-							<div class="definition_portfolio">
-								<span class="first"><a class="zoom" href="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/5.jpg">Title of project</a></span>
-								<span class="second">Category</span>
-							</div>
-						</div>
-					</li>
-					<li class="photography">
-						<div class="list_inner">
-							<div class="image_wrap">
-								<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
-								<div class="main_image"></div>
-							</div>
-							<div class="definition_portfolio">
-								<span class="first"><a class="zoom" href="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/6.jpg">Title of project</a></span>
-								<span class="second">Category</span>
-							</div>
-						</div>
-					</li>
+
+					<?php
+					$query = new WP_Query([
+						'post_type' => 'photo',
+						'order'    => 'DESC',
+						'posts_per_page' => -1,
+					]);
+
+					if ($query->have_posts()) :
+						while ($query->have_posts()) :
+							$query->the_post();
+							$posttags = get_the_tags();
+					?>
+							<li class="<?php if ($posttags) {
+														$anna_tags = [];
+														foreach ($posttags as $item) {
+															array_push($anna_tags, $item->name);
+														}
+														$anna_tags = implode(" ", $anna_tags);
+														echo $anna_tags;
+													} ?>">
+								<div class="list_inner">
+									<a class="zoom" href="<?php the_post_thumbnail_url() ?>">
+										<div class="image_wrap">
+											<img src="<?php echo ANNA_URL . '/assets/' ?>img/portfolio/600x600.jpg" alt="" />
+											<?php the_post_thumbnail('full', ['class' => 'main_image',]); ?>
+										</div>
+									</a>
+									<div class="definition_portfolio">
+										<span class="first"><?php echo $anna_tags; ?></span>
+										<span class="second">Category</span>
+									</div>
+								</div>
+							</li>
+
+					<?php
+						endwhile;
+					endif;
+					wp_reset_postdata();
+					?>
+
 				</ul>
 			</div>
 		</div>

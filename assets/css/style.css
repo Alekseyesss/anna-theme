@@ -926,16 +926,10 @@ img.svg{
 	bottom: 0px;
 	left: 0px;
 	right: 0px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
+	height: auto;
+	object-fit: cover;
+	object-position: center center;
 }
-.edina_tm_portfolio_list > li:nth-child(1) .image_wrap .main_image{background-image: url(../img/portfolio/1.jpg);}
-.edina_tm_portfolio_list > li:nth-child(2) .image_wrap .main_image{background-image: url(../img/portfolio/2.jpg);}
-.edina_tm_portfolio_list > li:nth-child(3) .image_wrap .main_image{background-image: url(../img/portfolio/3.jpg);}
-.edina_tm_portfolio_list > li:nth-child(4) .image_wrap .main_image{background-image: url(../img/portfolio/4.jpg);}
-.edina_tm_portfolio_list > li:nth-child(5) .image_wrap .main_image{background-image: url(../img/portfolio/5.jpg);}
-.edina_tm_portfolio_list > li:nth-child(6) .image_wrap .main_image{background-image: url(../img/portfolio/6.jpg);}
 .edina_tm_portfolio_list .list_inner .definition_portfolio{
 	position: absolute;
 	top: 100%;
